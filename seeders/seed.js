@@ -123,6 +123,7 @@ const workoutSeed = [
       },
     ],
   },
+
 ];
 
 db.Workout.deleteMany({})
