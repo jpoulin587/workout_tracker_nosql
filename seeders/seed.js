@@ -113,6 +113,12 @@ const workoutSeed = [
   {
     day: new Date(new Date().setDate(new Date().getDate() - 1)),
     exercises: [
+     {
+        type: 'cardio',
+        name: 'Running',
+        duration: 25,
+        distance: 4,
+      },
       {
         type: 'resistance',
         name: 'Military Press',
