@@ -3,7 +3,9 @@ const Workout = require("../models/workout");
 //const path = require('path');
 
 router.get("/api/workouts", (req, res)=> {
-    Workout.find()
+    Workout.aggregate([
+        { $addFields: {totalDuration: {$sum: "$exercises.duration"}}}
+    ])
         .then (workouts => {
             res.json(workouts);
         })
@@ -13,13 +15,16 @@ router.get("/api/workouts", (req, res)=> {
 });
 
 router.get("/api/workouts/range", (req, res)=> {
-    Workout.find({})
-        .then (workouts => {
-            res.json(workouts);
-        })
-        .catch(err => {
+    Workout.aggregate([
+        { $addFields: {totalDuration: {$sum: "$exercises.duration" }}}
+    ]) .sort({_id: -1})
+        .limit(7)
+    .then (workouts => {
+            res.json(workouts)
+    })   .catch(err => {
             res.status(400).json(err);
         });
+    
 });
 
 
